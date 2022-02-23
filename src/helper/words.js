@@ -2878,7 +2878,6 @@ export const words = [
   "retail",
   "retain",
   "retake",
-  "retard",
   "retest",
   "retina",
   "retire",

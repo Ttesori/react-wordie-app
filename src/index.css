@@ -1,3 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --blank-bkg: transparent;
+  --blank-txt: #fff;
+  --incorrect-bkg: #666;
+  --incorrect-txt: #ccc;
+  --correct-bkg: green;
+  --correct-txt: yellowgreen;
+  --semi-bkg: gold;
+  --semi-txt: darkgoldenrod;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #222;
+}
+
+.header {
+  background: #444;
+  color: #fff;
+  margin-bottom: 2em;
+  padding: 1em;
+  text-align: center;
+}
+
 .board {
   display: grid;
   grid-template-rows: repeat(6, 1fr);
@@ -10,25 +40,56 @@
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 1em;
+  font-weight: bold;
 }
 .guess__letter {
-  border: 2px solid #ddd;
-  height: 2em;
-  width: 2em;
+  border: 2px solid #666;
+  padding: 0.5em 0.65em;
   font-size: 2em;
+  border-radius: 0.5em;
+  text-align: center;
+  background: var(--blank-bkg);
+  color: var(--blank-txt);
+}
+
+.keyboard {
+  display: grid;
+  gap: 0.5em;
+}
+
+.keyboard__row {
+  display: grid;
+  grid-template-columns: repeat(10, 2.5em);
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.key {
+  background: var(--blank-bkg);
+  color: var(--blank-txt);
+  border-radius: 0.5em;
+  padding: 1em 0.5em;
+  border: none;
 }
 
 .guess__letter-0,
 .key--correct-0 {
-  color: #666;
+  background: var(--incorrect-bkg);
+  color: var(--incorrect-txt);
+  border-color: transparent;
 }
 
 .guess__letter-1,
 .key--correct-1 {
-  border: 2px solid gold;
+  background: var(--semi-bkg);
+  color: var(--semi-txt);
+  border-color: transparent;
 }
 
 .guess__letter-2,
 .key--correct-2 {
-  border: 2px solid green;
+  background: var(--correct-bkg);
+  color: var(--correct-txt);
+  border-color: transparent;
 }

@@ -28,13 +28,13 @@ export default function Keyboard({ handleClick, letters }) {
       row.map((letter, i) => keysEls.push(<Key handleClick={handleClick} keyValue={letter} key={'key' + i} correct={letters[letter]} />));
       rows.push(keysEls);
     });
-    setKeysEls(rows.map(row => <div className="row">{row}</div>));
+    setKeysEls(rows.map(row => <div className="keyboard__row">{row}</div>));
   }, [letters, handleClick])
 
   return (
-    <>
+    <div class="keyboard">
       {keysEls}
-    </>
+    </div>
 
   )
 }

@@ -8,6 +8,7 @@ function App() {
   const [currentWord, updateWord] = useState('');
   const [offset, setOffset] = useState(getOffset());
   const [letters, setLetters] = useState([]);
+  const [isGameOver, setGameOver] = useState(false);
   console.log(words2[offset]);
 
 
@@ -32,9 +33,6 @@ function App() {
       return false;
     }
 
-    // if word is correct, game over
-    if (currentWord.join('') === x) return gameOver();
-
     // build result
     let grade = [];
     let newLetters = {}
@@ -58,12 +56,19 @@ function App() {
       word: currentWord,
       grade: grade
     }]);
+
     updateWord('');
+
+    // if word is correct, game over
+    if (currentWord.join('') === x) return gameOver();
+
+
   }
 
 
   const gameOver = () => {
     console.log('Game over, you win!');
+    setGameOver(true);
   }
 
   const handleBackspace = () => {
@@ -75,9 +80,12 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Wordie</h1>
+      <header className="header">
+        <h1 className="header__title">Wordie</h1>
+      </header>
+
       <Board guesses={guesses} currentWord={currentWord}></Board>
-      <Keyboard handleClick={handleClick} letters={letters} ></Keyboard>
+      {!isGameOver && <Keyboard handleClick={handleClick} letters={letters} ></Keyboard>}
     </div>
   );
 }
