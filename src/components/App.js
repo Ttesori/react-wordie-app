@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { words, words2, getOffset } from '../helper/words';
 import Board from "./Board";
 import Keyboard from "./Keyboard";
+import Modal from "react-modal/lib/components/Modal";
 
 function App() {
   const [guesses, updateGuesses] = useState([]);
@@ -9,7 +10,8 @@ function App() {
   const [offset, setOffset] = useState(getOffset());
   const [letters, setLetters] = useState([]);
   const [isGameOver, setGameOver] = useState(false);
-  console.log(words2[offset]);
+  const [modalIsOpen, setIsOpen] = useState(false);
+  Modal.setAppElement('#root');
 
 
   const handleClick = e => {
@@ -69,6 +71,7 @@ function App() {
   const gameOver = () => {
     console.log('Game over, you win!');
     setGameOver(true);
+    setIsOpen(true);
   }
 
   const handleBackspace = () => {
@@ -86,6 +89,10 @@ function App() {
 
       <Board guesses={guesses} currentWord={currentWord}></Board>
       {!isGameOver && <Keyboard handleClick={handleClick} letters={letters} ></Keyboard>}
+      {modalIsOpen && <Modal isOpen={modalIsOpen} onRequestClose={() => setIsOpen(false)}>
+        <button onClick={() => setIsOpen(false)}>close</button>
+        <p>Game Over, you win!</p>
+      </Modal>}
     </div>
   );
 }

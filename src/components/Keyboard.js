@@ -15,10 +15,7 @@ export default function Keyboard({ handleClick, letters }) {
         "A", "S", "D", "F", "G", "H", "J", "K", "L"
       ],
       [
-        "Z", "X", "C", "V", "B", "N", "M"
-      ],
-      [
-        "Enter", "<<"
+        "Z", "X", "C", "V", "B", "N", "M", "Enter", "<<"
       ]
     ]
     const rows = []
@@ -28,11 +25,11 @@ export default function Keyboard({ handleClick, letters }) {
       row.map((letter, i) => keysEls.push(<Key handleClick={handleClick} keyValue={letter} key={'key' + i} correct={letters[letter]} />));
       rows.push(keysEls);
     });
-    setKeysEls(rows.map(row => <div className="keyboard__row">{row}</div>));
+    setKeysEls(rows.map((row, i) => <div className="keyboard__row" key={i}>{row}</div>));
   }, [letters, handleClick])
 
   return (
-    <div class="keyboard">
+    <div className="keyboard">
       {keysEls}
     </div>
 
