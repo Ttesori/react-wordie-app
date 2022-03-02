@@ -6,22 +6,20 @@ import Modal from "react-modal/lib/components/Modal";
 
 function App() {
   const [guesses, updateGuesses] = useState([]);
-  const [currentWord, updateWord] = useState('');
+  const [currentWord, updateWord] = useState([]);
   const [offset, setOffset] = useState(getOffset());
   const [letters, setLetters] = useState([]);
   const [isGameOver, setGameOver] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
   Modal.setAppElement('#root');
 
-
-  const handleClick = e => {
-    const key = e.target.value;
-    console.log(key);
+  const handleClick = key => {
+    console.log('key', key);
     if (key === 'Enter') return handleEnter();
     if (key === '<<') return handleBackspace();
-
+    console.log('currentword', currentWord);
     if (currentWord.length < 6) {
-      updateWord([...currentWord, e.target.value])
+      updateWord([...currentWord, key])
       console.log('word updated');
     }
 
@@ -80,6 +78,22 @@ function App() {
     updateWord(newWord);
   }
 
+  const handleKeys = (e) => {
+    const key = e.key;
+    console.log(e);
+    if (key === 'Enter') return handleEnter();
+    if (key === 'Backspace') return handleBackspace();
+    if (e.keyCode >= 65 && e.keyCode <= 90) handleClick(key.toUpperCase());
+  }
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeys)
+    return () => {
+      document.removeEventListener('keydown', handleKeys)
+    }
+  }, [currentWord])
+
+
 
   return (
     <div className="App">
@@ -88,7 +102,7 @@ function App() {
       </header>
 
       <Board guesses={guesses} currentWord={currentWord}></Board>
-      {!isGameOver && <Keyboard handleClick={handleClick} letters={letters} ></Keyboard>}
+      {!isGameOver && <Keyboard handleClick={(e) => handleClick(e.target.value)} letters={letters} ></Keyboard>}
       {modalIsOpen && <Modal isOpen={modalIsOpen} onRequestClose={() => setIsOpen(false)}>
         <button onClick={() => setIsOpen(false)}>close</button>
         <p>Game Over, you win!</p>
