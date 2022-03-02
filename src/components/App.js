@@ -14,16 +14,13 @@ function App() {
   Modal.setAppElement('#root');
 
   const handleClick = key => {
-    console.log('key', key);
     if (key === 'Enter') return handleEnter();
     if (key === '<<') return handleBackspace();
-    console.log('currentword', currentWord);
     if (currentWord.length < 6) {
       updateWord([...currentWord, key])
-      console.log('word updated');
     }
-
   }
+
   const handleEnter = () => {
     const wordToCheck = currentWord.join('').toLowerCase();
     const x = words2[offset].toUpperCase();
@@ -61,8 +58,6 @@ function App() {
 
     // if word is correct, game over
     if (currentWord.join('') === x) return gameOver();
-
-
   }
 
 
@@ -74,13 +69,11 @@ function App() {
 
   const handleBackspace = () => {
     let newWord = currentWord.slice(0, currentWord.length - 1);
-    console.log('removing char', newWord);
     updateWord(newWord);
   }
 
   const handleKeys = (e) => {
     const key = e.key;
-    console.log(e);
     if (key === 'Enter') return handleEnter();
     if (key === 'Backspace') return handleBackspace();
     if (e.keyCode >= 65 && e.keyCode <= 90) handleClick(key.toUpperCase());
